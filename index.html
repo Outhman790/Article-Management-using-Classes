@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <script defer src="validation.js"></script>
+    <script defer src="style.js"></script>
+    <script
+      src="https://kit.fontawesome.com/c1f4059a23.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <section id="form_section" class="container">
+      <form class="grid_8">
+        <div id="nom_div" data-name="nom">
+          <label for="nom_input" id="nom_label">Nom:</label>
+          <input type="text" name="nom" id="nom_input" maxlength="30" />
+          <small></small>
+        </div>
+        <div id="marque_div" data-name="marque">
+          <label for="marque_input" id="marque_label">Marque:</label>
+          <input type="text" name="marque" id="marque_input" maxlength="30" />
+          <small></small>
+        </div>
+        <div id="prix_div" data-name="prix">
+          <label for="prix_input" id="prix_label">Prix:</label>
+          <input type="number" name="prix" id="prix_input" />
+          <small></small>
+        </div>
+        <div id="dateprd_div" data-name="dateprd">
+          <label for="dateprd_input" id="dateprd_label"
+            >Date de production:</label
+          >
+          <input type="date" name="dateprd" id="dateprd_input" />
+          <small></small>
+        </div>
+        <div id="type_div" data-name="type">
+          <label for="type_input" id="type_label">type:</label>
+          <select id="select" name="type">
+            <option value="">Please select the Product type</option>
+            <option value="hygiène et toilette" class="type">
+              hygiène et toilette
+            </option>
+            <option value="soins esthétiques" class="type">
+              soins esthétiques
+            </option>
+            <option value="produits solaires" class="type">
+              produits solaires
+            </option>
+            <option value="beauté des mains et des pieds" class="type">
+              beauté des mains et des pieds
+            </option>
+            <option value="produits de maquillage" class="type">
+              produits de maquillage
+            </option>
+            <option value="entretien capillaires" class="type">
+              entretien capillaires
+            </option>
+            <option value="parfums" class="type">parfums</option>
+          </select>
+          <small></small>
+        </div>
+        <div id="promotion_div" data-name="promotion">
+          <p>promotion:</p>
+          <input
+            type="radio"
+            name="promotion"
+            id="promotion_input_oui"
+            value="Oui"
+          />
+          <label for="promotion_input_oui">Oui</label>
+          <input
+            type="radio"
+            name="promotion"
+            id="promotion_input_non"
+            value="Non"
+          />
+          <label for="promotion_input_non">Non</label>
+          <small></small>
+        </div>
+        <div id="feedback_msg" class="bar erroor"></div>
+        <input type="submit" value="Submit" id="submit_btn" class="grid_8" />
+      </form>
+      <div class="grid_10">
+        <table class="grid_10">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Marque</th>
+              <th>Prix</th>
+              <th>Date de production</th>
+              <th>type</th>
+              <th>promotion</th>
+              <th colspan="2">update/delete</th>
+            </tr>
+          </thead>
+          <tbody class="table_Body"></tbody>
+        </table>
+      </div>
+    </section>
+    <section id="modal_delete">
+      <div class="modal_delete">
+        <p>Are you sure you want to delete your account?</p>
+        <div id="modal_buttons">
+          <button onclick="exitModal()" class="cancelbtn">Cancel</button>
+          <button id="delete_Pro" class="deletebtn">Delete</button>
+        </div>
+      </div>
+      <div class="overlay"></div>
+    </section>
+    <section id="modal_submit">
+      <div class="modal_submit"></div>
+      <div class="overlay"></div>
+    </section>
+  </body>
+</html>
