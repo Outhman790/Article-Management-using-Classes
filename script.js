@@ -151,7 +151,7 @@ submitBtn.addEventListener("click", (e) => {
       modalAddDiv.innerHTML = dataObj.getDetails();
       modalAdd.style.display = "flex";
       formSection.style.display = "none";
-      // clearChecking(divs);
+      clearChecking(divs);
     }
   } else {
     if (
@@ -159,7 +159,7 @@ submitBtn.addEventListener("click", (e) => {
       checkMark(marqueInput) == false ||
       checkPrice(priceInput) == false ||
       promotionNoValue() == true ||
-      checkType() == false ||
+      checkType(typeInput) == false ||
       checkDate(datePrdInput) == false
     ) {
       feedbackMsg.style.display = "block";
@@ -174,9 +174,11 @@ submitBtn.addEventListener("click", (e) => {
       localStorage.setItem("product", JSON.stringify(dataArr));
       showData();
       clearInputs();
-      // clearChecking(divs);
+      clearChecking(divs);
       feedbackMsg.innerHTML = "";
       feedbackMsg.style.display = "none";
+      submitBtn.value = "Submit";
+      current == "create";
     }
   }
 });
