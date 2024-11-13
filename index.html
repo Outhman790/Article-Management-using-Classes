@@ -20,24 +20,24 @@
         <div id="nom_div" data-name="nom">
           <label for="nom_input" id="nom_label">Nom:</label>
           <input type="text" name="nom" id="nom_input" maxlength="30" />
-          <small></small>
+          <small class="small"></small>
         </div>
         <div id="marque_div" data-name="marque">
           <label for="marque_input" id="marque_label">Marque:</label>
           <input type="text" name="marque" id="marque_input" maxlength="30" />
-          <small></small>
+          <small class="small"></small>
         </div>
         <div id="prix_div" data-name="prix">
           <label for="prix_input" id="prix_label">Prix:</label>
           <input type="number" name="prix" id="prix_input" />
-          <small></small>
+          <small class="small"></small>
         </div>
         <div id="dateprd_div" data-name="dateprd">
           <label for="dateprd_input" id="dateprd_label"
             >Date de production:</label
           >
           <input type="date" name="dateprd" id="dateprd_input" />
-          <small></small>
+          <small class="small"></small>
         </div>
         <div id="type_div" data-name="type">
           <label for="type_input" id="type_label">type:</label>
@@ -63,7 +63,7 @@
             </option>
             <option value="parfums" class="type">parfums</option>
           </select>
-          <small></small>
+          <small class="small"></small>
         </div>
         <div id="promotion_div" data-name="promotion">
           <p>promotion:</p>
@@ -81,9 +81,11 @@
             value="Non"
           />
           <label for="promotion_input_non">Non</label>
-          <small></small>
+          <small class="small"></small>
         </div>
-        <div id="feedback_msg" class="bar erroor"></div>
+        <div>
+          <small id="feedback_msg" class="bar erroor"></small>
+        </div>
         <input type="submit" value="Submit" id="submit_btn" class="grid_8" />
       </form>
       <div class="grid_10">

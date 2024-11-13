@@ -11,7 +11,6 @@ const modalDelete = document.getElementById("modal_delete");
 const modalAdd = document.querySelector("#modal_submit");
 const modalAddDiv = document.querySelector(".modal_submit");
 const formSection = document.getElementById("form_section");
-// const tableData = document.querySelector(".magazin_list");
 const submitBtn = document.querySelector("#submit_btn");
 const deleteBtn = document.querySelector(".delete_btn");
 const feedbackMsg = document.querySelector("#feedback_msg");
@@ -52,6 +51,15 @@ window.addEventListener("click", (e) => {
     showData();
   }
 });
+/**
+ * Returns the value of the checked promotion input field or "Non" if none is checked.
+ * @returns {string} The value of the checked promotion input field or "Non".
+ */
+const getPromotionValue = () => {
+  return (
+    document.querySelector('input[name="promotion"]:checked')?.value || "Non"
+  );
+};
 // adding data function
 const showData = () => {
   let table = "";
@@ -84,6 +92,7 @@ const deleteData = (i) => {
   modalDelete.style.display = "none";
   dataArr.splice(i, 1);
   localStorage.product = JSON.stringify(dataArr);
+  tableBody.classList.add("update-success");
   showData();
 };
 // edit button
@@ -117,6 +126,13 @@ const article = class {
     <p>En promotion: <span>${this.promotion}</span></p>`;
   }
 };
+modalAddDiv.addEventListener("animationend", () => {
+  modalAddDiv.classList.remove("submit-success");
+});
+
+tableBody.addEventListener("animationend", () => {
+  tableBody.classList.remove("update-success");
+});
 // submit event
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -126,21 +142,24 @@ submitBtn.addEventListener("click", (e) => {
     priceInput.value,
     datePrdInput.value,
     typeInput.value,
-    document.querySelector('input[name="promotion"]:checked')?.value
+    getPromotionValue()
   );
+  const inputsArrChecking = [
+    checkName(nameInput),
+    checkMark(marqueInput),
+    checkPrice(priceInput),
+    checkType(typeInput),
+    checkDate(datePrdInput),
+    checkPromotion(),
+  ];
   if (current == "create") {
-    if (
-      checkName(nameInput) == false ||
-      checkMark(marqueInput) == false ||
-      checkPrice(priceInput) == false ||
-      promotionNoValue() == true ||
-      checkType(typeInput) == false ||
-      checkDate(datePrdInput) == false
-    ) {
+    if (inputsArrChecking.some((input) => input === false)) {
+      modalAddDiv.classList.add("submit-success");
       feedbackMsg.style.display = "block";
       feedbackMsg.innerHTML = "an error ocurred";
       checkInputs();
     } else {
+      tableBody.classList.add("update-success");
       dataArr.push(dataObj);
       dataArr.sort((a, b) => a.name.localeCompare(b.name));
       localStorage.setItem("product", JSON.stringify(dataArr));
@@ -154,29 +173,24 @@ submitBtn.addEventListener("click", (e) => {
       clearChecking(divs);
     }
   } else {
-    if (
-      checkName(nameInput) == false ||
-      checkMark(marqueInput) == false ||
-      checkPrice(priceInput) == false ||
-      promotionNoValue() == true ||
-      checkType(typeInput) == false ||
-      checkDate(datePrdInput) == false
-    ) {
+    if (inputsArrChecking.some((input) => input === false)) {
+      tableBody.classList.add("update-success");
       feedbackMsg.style.display = "block";
       feedbackMsg.innerHTML = "an error ocurred";
+      checkInputs();
     } else {
+      tableBody.classList.add("update-success");
       dataArr[temp].name = nameInput.value;
       dataArr[temp].marque = marqueInput.value;
       dataArr[temp].price = priceInput.value;
       dataArr[temp].date = datePrdInput.value;
       dataArr[temp].type = typeInput.value;
+      dataArr[temp].promotion = getPromotionValue();
       dataArr.sort((a, b) => a.name.localeCompare(b.name));
       localStorage.setItem("product", JSON.stringify(dataArr));
       showData();
       clearInputs();
       clearChecking(divs);
-      feedbackMsg.innerHTML = "";
-      feedbackMsg.style.display = "none";
       submitBtn.value = "Submit";
       current == "create";
     }

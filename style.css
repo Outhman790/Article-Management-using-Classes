@@ -55,12 +55,9 @@ form div {
   padding-bottom: 1.25rem;
   background-color: #f0f2f3;
 }
-/* small {
-  visibility: hidden;
+.hidden {
+  display: none;
 }
-.error small {
-  visibility: visible;
-} */
 form div label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -210,6 +207,38 @@ select {
 }
 .modal_submit p {
   display: block;
+}
+.submit-success {
+  animation: submitPulse 0.5s ease-in-out;
+}
+
+.update-success {
+  animation: updateSlide 0.5s ease-in-out;
+}
+.small {
+  color: #ff1900;
+}
+@keyframes submitPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes updateSlide {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 @media (max-width: 1000px) {
   table {

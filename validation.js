@@ -1,6 +1,10 @@
 "use strict";
 const typeDiv = document.querySelector("#type_div");
-// validating name
+/**
+ * Validates a name input field.
+ * @param {HTMLInputElement} name - The name input field to validate.
+ * @returns {boolean} True if the name is valid, false otherwise.
+ */
 const checkName = (name) => {
   if (name.value.trim() === "") {
     printError(name, "Please enter a name");
@@ -13,7 +17,12 @@ const checkName = (name) => {
     return false;
   }
 };
-// validating marque
+
+/**
+ * Validates a marque input field.
+ * @param {HTMLInputElement} mark - The marque input field to validate.
+ * @returns {boolean} True if the marque is valid, false otherwise.
+ */
 const checkMark = (mark) => {
   if (mark.value.trim() === "") {
     printError(mark, "Please enter a mark");
@@ -26,7 +35,12 @@ const checkMark = (mark) => {
     return false;
   }
 };
-// validating price
+
+/**
+ * Validates a price input field.
+ * @param {HTMLInputElement} price - The price input field to validate.
+ * @returns {boolean} True if the price is valid, false otherwise.
+ */
 const checkPrice = (price) => {
   if (price.value.trim() === "") {
     printError(price, "Please enter a price");
@@ -39,17 +53,45 @@ const checkPrice = (price) => {
     return false;
   }
 };
-// validating date
+
+/**
+ * Formats a date as a string in the format "YYYY-MM-DD".
+ * @param {Date} date - The date to format.
+ * @returns {string} The formatted date string.
+ */
+function formatDate(date) {
+  let year = date.getFullYear();
+  let month = (date.getMonth() + 1).toString().padStart(2, "0");
+  let day = date.getDate().toString().padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Validates a date input field.
+ * @param {HTMLInputElement} date - The date input field to validate.
+ * @returns {boolean} True if the date is valid, false otherwise.
+ */
 const checkDate = (date) => {
-  if (!(date.value === "")) {
+  let today = new Date();
+  const selectedDate = new Date(date.value);
+  console.log(formatDate(selectedDate));
+  console.log(formatDate(today));
+  console.log(formatDate(selectedDate) != formatDate(today));
+  if (date.value === "" || formatDate(selectedDate) >= formatDate(today)) {
+    printError(date, "Please enter a valid date");
+    return false;
+  } else {
     printSuccess(date);
     return true;
-  } else {
-    printError(date, "Please enter a date");
-    return false;
   }
 };
-// validating type
+
+/**
+ * Validates a type input field.
+ * @param {HTMLSelectElement} selectInput - The type input field to validate.
+ * @returns {boolean} True if the type is valid, false otherwise.
+ */
 const checkType = (selectInput) => {
   if (selectInput.value === "") {
     typeDiv.querySelector("small").textContent = "Please select a type";
@@ -62,31 +104,30 @@ const checkType = (selectInput) => {
     return true;
   }
 };
-// validating promotion
-const promotionNoValue = () => {
+
+/**
+ * Checks if a promotion input field has a value.
+ * @returns {boolean} True if the promotion input field has no value, false otherwise.
+ */
+const checkPromotion = () => {
   if (!promotionInputYes.checked && !promotionInputNo.checked) {
     printError(promotionInputYes, "please select one");
-    return true;
+    return false;
   } else {
     printSuccess(promotionInputYes);
-    return false;
+    return true;
   }
 };
-// checking all inputs at once
+
+/**
+ * Validates all form inputs by checking name, mark, price, date, type and promotion
+ * @returns {void}
+ */
 const checkInputs = () => {
   checkName(nameInput);
   checkMark(marqueInput);
   checkPrice(priceInput);
   checkDate(datePrdInput);
   checkType(typeInput);
-  promotionNoValue();
-};
-const clearChecking = (divs) => {
-  divs.forEach((div) => {
-    console.log(div);
-    const divName = div.dataset.name;
-    if (div.classList.contains("success") || div.classList.contains("error")) {
-      div.className = `${divName}_div`;
-    }
-  });
+  checkPromotion();
 };
