@@ -25,7 +25,9 @@ let temp;
 modalDelete.style.display = "none";
 modalAdd.style.display = "none";
 
-//
+// clearing inputs when refreshing the page
+// clearInputs();
+// getting data from local storage if exists
 let dataArr = [];
 if (localStorage.product != null) {
   dataArr = JSON.parse(localStorage.product);

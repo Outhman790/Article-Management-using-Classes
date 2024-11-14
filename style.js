@@ -8,8 +8,6 @@ const printError = (input, message) => {
   const inputName = input.name;
   const inputDiv = input.closest(`#${inputName}_div`);
   const small = inputDiv.querySelector("small");
-  // small.style.visibility = "visible";
-  // small.style.color = "red";
   inputDiv.className = `${inputName}_div error`;
   small.innerText = message;
 };
@@ -22,6 +20,7 @@ const printSuccess = (input) => {
   const inputDiv = input.closest(`#${inputName}_div`);
   const small = inputDiv.querySelector("small");
   inputDiv.className = `${inputName}_div`;
+  small.innerText = "";
 };
 
 /**
@@ -52,4 +51,9 @@ const clearChecking = (divs) => {
     feedbackMsg.innerHTML = "";
     feedbackMsg.style.display = "none";
   }
+};
+const exitModal = () => {
+  modal_delete.style.display = "none";
+  document.querySelector(".overlay").style.display = "none";
+  form_section.style.display = "grid";
 };
