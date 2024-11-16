@@ -11,6 +11,7 @@ const printError = (input, message) => {
   inputDiv.className = `${inputName}_div error`;
   small.innerText = message;
 };
+
 /**
  * Updates the styling of an input field's parent div element and removes validation messages
  * @param {HTMLElement} input - The input element to process
@@ -28,13 +29,30 @@ const printSuccess = (input) => {
  * Clears text inputs and unchecks radio buttons.
  */
 const clearInputs = () => {
-  nameInput.value = "";
-  marqueInput.value = "";
-  priceInput.value = "";
-  typeInput.value = "";
-  datePrdInput.value = "";
-  promotionInputNo.checked = false;
-  promotionInputYes.checked = false;
+  const inputs = [
+    { element: nameInput, type: "text" },
+    { element: marqueInput, type: "text" },
+    { element: priceInput, type: "number" },
+    { element: datePrdInput, type: "date" },
+    { element: typeInput, type: "select" },
+    { element: promotionInputYes, type: "radio" },
+    { element: promotionInputNo, type: "radio" },
+  ];
+  inputs.forEach(({ element, type }) => {
+    switch (type) {
+      case "text":
+      case "number":
+      case "date":
+        element.value = "";
+        break;
+      case "select":
+        element.selectedIndex = 0;
+        break;
+      case "radio":
+        element.checked = false;
+        break;
+    }
+  });
 };
 
 /**
@@ -52,6 +70,11 @@ const clearChecking = (divs) => {
     feedbackMsg.style.display = "none";
   }
 };
+
+/**
+ * Hides the delete modal and the overlay, and shows the form section
+ * Resets the UI to the default state when the delete modal is closed
+ */
 const exitModal = () => {
   modal_delete.style.display = "none";
   document.querySelector(".overlay").style.display = "none";

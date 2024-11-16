@@ -26,7 +26,9 @@ modalDelete.style.display = "none";
 modalAdd.style.display = "none";
 
 // clearing inputs when refreshing the page
-// clearInputs();
+document.addEventListener("DOMContentLoaded", () => {
+  clearInputs();
+});
 // getting data from local storage if exists
 let dataArr = [];
 if (localStorage.product != null) {
@@ -34,7 +36,16 @@ if (localStorage.product != null) {
   dataArr.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-// events ( will be improved after finishing )
+/**
+ * Adds event listeners to input elements to validate their values.
+ *
+ * - Listens for the "blur" event on name, marque, and price inputs to trigger validation functions
+ *   (checkName, checkMark, checkPrice) when the input loses focus.
+ * - Listens for the "click" event on the type input to trigger the checkType function.
+ *
+ * @listens blur - Triggers validation on name, marque, and price inputs.
+ * @listens click - Triggers validation on the type input.
+ */
 nameInput.addEventListener("blur", (e) => {
   checkName(e.target);
 });
@@ -53,6 +64,7 @@ window.addEventListener("click", (e) => {
     showData();
   }
 });
+
 /**
  * Returns the value of the checked promotion input field or "Non" if none is checked.
  * @returns {string} The value of the checked promotion input field or "Non".
@@ -83,12 +95,21 @@ const showData = () => {
   }
   tableBody.innerHTML = table;
 };
-//
+
+/**
+ * Shows the delete modal and hides the form section, and sets the delete button's onclick attribute to deleteData with the given index.
+ * @param {number} i - The index of the element to be deleted in the data array.
+ */
 const deletedData = (i) => {
   formSection.style.display = "none";
   modalDelete.style.display = "flex";
   delete_Pro.setAttribute("onclick", `deleteData(${i})`);
 };
+
+/**
+ * Deletes the element at the given index from the data array, saves the data to local storage and shows the data.
+ * @param {number} i - The index of the element to be deleted in the data array.
+ */
 const deleteData = (i) => {
   formSection.style.display = "grid";
   modalDelete.style.display = "none";
@@ -128,6 +149,7 @@ const article = class {
     <p>En promotion: <span>${this.promotion}</span></p>`;
   }
 };
+// Modal animations
 modalAddDiv.addEventListener("animationend", () => {
   modalAddDiv.classList.remove("submit-success");
 });
@@ -135,6 +157,7 @@ modalAddDiv.addEventListener("animationend", () => {
 tableBody.addEventListener("animationend", () => {
   tableBody.classList.remove("update-success");
 });
+
 // submit event
 submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
