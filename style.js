@@ -62,7 +62,7 @@ const clearInputs = () => {
 const clearChecking = (divs) => {
   divs.forEach((div) => {
     const smallElement = div.querySelector("small");
-    smallElement.style.visibility = "hidden";
+    smallElement.innerHTML = "";
   });
 
   if (feedbackMsg) {
@@ -80,3 +80,4 @@ const exitModal = () => {
   document.querySelector(".overlay").style.display = "none";
   form_section.style.display = "grid";
 };
+document.querySelector(".overlay").addEventListener("click", exitModal);

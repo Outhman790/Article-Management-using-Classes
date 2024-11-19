@@ -21,7 +21,19 @@ const priceRegex = new RegExp("[0-9]", "g");
 const validate = (input, regex) => regex.test(input.value.toLowerCase());
 let current = "create";
 let temp;
-// hiding the modal
+
+// hiding modals
+document
+  .querySelector(".welcome-modal-close")
+  .addEventListener("click", function () {
+    document.querySelector(".welcome-overlay").style.display = "none";
+  });
+
+document
+  .querySelector(".welcome-modal-button")
+  .addEventListener("click", function () {
+    document.querySelector(".welcome-overlay").style.display = "none";
+  });
 modalDelete.style.display = "none";
 modalAdd.style.display = "none";
 
@@ -104,6 +116,7 @@ const deletedData = (i) => {
   formSection.style.display = "none";
   modalDelete.style.display = "flex";
   delete_Pro.setAttribute("onclick", `deleteData(${i})`);
+  document.querySelector(".overlay").style.display = "block";
 };
 
 /**

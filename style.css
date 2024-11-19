@@ -88,34 +88,80 @@ input[type="radio"] {
   border-radius: 10px;
   border: none;
 }
+/* Enhanced table styling */
 table {
-  min-width: 100%;
-  margin: 3rem 0;
-  border-collapse: collapse;
-  background-color: #f0f2f3;
-  color: black;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0 3rem 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  overflow: hidden;
 }
-th {
-  text-transform: uppercase;
+
+table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
 }
-th,
-td {
-  border: 1px solid black;
+
+table th,
+table td {
+  padding: 12px 15px;
   text-align: center;
-  height: fit-content;
-  padding: 0.75rem 1rem;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #dbdbdb;
+}
+
+table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+/* Hover effect */
+table tbody tr:hover {
+  background-color: #f5fff5;
+  transition: all 0.3s ease;
 }
 .modify_btn,
 .delete_btn {
-  color: #ffffff;
-  background-color: #388c73;
-  padding: 0.5rem 0.75rem;
-  border-radius: 10px;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
   text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease;
 }
+
+.modify_btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.delete_btn {
+  background-color: #f44336;
+  color: white;
+}
+
 .modify_btn:hover,
 .delete_btn:hover {
-  background-color: #89ffe7;
+  opacity: 0.8;
+  transform: translateY(-2px);
 }
 .success div {
   border-color: #00ff6a;
@@ -151,6 +197,7 @@ select {
   max-width: 800px;
   height: 25%;
   max-height: 180px;
+  transform: translateY(-50%);
   border-radius: 5px;
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
   z-index: 20;
@@ -174,8 +221,8 @@ select {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(3px);
   z-index: 10;
@@ -215,6 +262,94 @@ select {
 .small {
   color: #ff1900;
 }
+
+.welcome-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.welcome-modal {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 35rem;
+  width: 90%;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.welcome-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.welcome-modal-close:hover {
+  color: #333;
+}
+
+.welcome-modal-icon {
+  font-size: 64px;
+  color: #4caf50;
+  margin-bottom: 20px;
+}
+
+.welcome-modal-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.welcome-modal-content {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+  text-align: left;
+}
+.welcome-modal-content p {
+  padding: 0.5rem;
+}
+.welcome-modal-content ul {
+  list-style-type: none;
+  padding-left: 20px;
+}
+
+.welcome-modal-content ul li:before {
+  content: "•";
+  color: #4caf50;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
+.welcome-modal-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.welcome-modal-button:hover {
+  background-color: #45a049;
+}
+
 @keyframes submitPulse {
   0% {
     transform: scale(1);
@@ -265,18 +400,47 @@ select {
     display: block;
   }
 }
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
   table {
-    font-size: 0.55rem;
+    border: 0;
   }
-  table * {
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
     padding: 0;
+    position: absolute;
+    width: 1px;
   }
-  .delete_btn,
-  .modify_btn {
-    padding: 0.35rem;
-    margin: 0.25rem;
+
+  table tr {
+    border-bottom: 3px solid #ddd;
     display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+  }
+
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
   }
 }
 
@@ -287,11 +451,84 @@ select {
   table * {
     padding: 0;
   }
+  table td {
+    text-align: center;
+  }
   .delete_btn,
   .modify_btn {
     padding: 0.25rem;
     margin: 0.25rem;
     display: block;
     border-radius: 8%;
+  }
+  .welcome-modal {
+    padding: 20px;
+  }
+
+  .welcome-modal-icon {
+    font-size: 48px;
+  }
+
+  .welcome-modal-title {
+    font-size: 20px;
+  }
+
+  .welcome-modal-content {
+    font-size: 14px;
+  }
+
+  .welcome-modal-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}
+.welcome-modal-footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.welcome-modal-footer a {
+  color: #4caf50;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.welcome-modal-footer a:hover {
+  text-decoration: underline;
+}
+
+.welcome-modal-footer .fab {
+  font-size: 18px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+@media screen and (max-width: 320px) {
+  .welcome-modal {
+    padding: 15px;
+  }
+
+  .welcome-modal-icon {
+    font-size: 36px;
+  }
+
+  .welcome-modal-title {
+    font-size: 18px;
+  }
+
+  .welcome-modal-content {
+    font-size: 12px;
+  }
+
+  .welcome-modal-button {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+  .welcome-modal-footer {
+    font-size: 12px;
+  }
+
+  .welcome-modal-footer .fab {
+    font-size: 16px;
   }
 }
